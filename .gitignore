@@ -1,0 +1,12 @@
+.tools/
+firmware/
+logs/
+*.bin
+*.bin.ota
+*.log
+*.tar.gz
+__pycache__/
+.DS_Store
+.env
+.env.*
+!*.example
