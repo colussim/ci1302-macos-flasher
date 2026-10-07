@@ -1,6 +1,11 @@
 # CI1302 macOS Flasher
 
-[Français](README.fr.md) · [CLI reference](docs/api/cli.md) · [Troubleshooting](docs/operations/troubleshooting.md)
+[![Checks](https://github.com/colussim/ci1302-macos-flasher/actions/workflows/check.yml/badge.svg)](https://github.com/colussim/ci1302-macos-flasher/actions/workflows/check.yml)
+[![Platform: macOS](https://img.shields.io/badge/platform-macOS-000000?logo=apple&logoColor=white)](docs/deployment/installation.md)
+[![Chip: CI1302](https://img.shields.io/badge/chip-CI1302-blue)](#scope-and-validation)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+[CLI reference](docs/api/cli.md) · [Troubleshooting](docs/operations/troubleshooting.md)
 
 A small native macOS helper for inspecting, probing, and flashing **CI1302 voice
 modules** through a CH340 USB-to-serial interface. Tested with **M5Stack Module
@@ -8,6 +13,44 @@ ASR M147** on Apple Silicon. The programming engine is
 [citool-cli by coloz](https://github.com/coloz/arduino-ci130x/releases/tag/citool-cli-v1.2.2);
 this repository adds a pinned installer, image/USB guards, reproducible commands,
 tests, and documentation.
+
+## Why this repository exists
+
+Flashing a CI1302 module should be possible directly from a Mac. The
+[official M5Stack Module ASR procedure](https://docs.m5stack.com/en/guide/module_asr/custom_firmware)
+uses a Windows `.exe` flashing tool and does not describe a native macOS
+flashing procedure. This repository provides that missing Mac workflow:
+inspect a complete firmware image, check the USB connection, program the
+module, and verify its CRC from the terminal, without Windows, Wine, or a
+virtual machine.
+
+The native engine is provided by the existing **citool-cli** project. This
+helper makes it straightforward to install a verified, pinned release and
+repeat the tested M147 programming sequence with explicit image and port
+selection. Firmware generation stays with your supplier or SmartPI; the
+repository focuses on flashing the resulting complete image from macOS.
+
+## How it works
+
+```mermaid
+flowchart LR
+    Supplier["Module supplier or SmartPI"] -->|Complete .bin image| Image
+    subgraph Mac["Mac running macOS"]
+        Image["CI1302 FW_V2 firmware"] --> Helper["flasher.sh<br/>Image and USB checks"]
+        Helper --> Engine["citool-cli 1.2.2<br/>Native programming engine"]
+    end
+    subgraph Module["CI1302 module - tested with M5Stack M147"]
+        USB["USB-C / CH340<br/>VID 1A86 / PID 7523"] -->|Serial programming| Chip["CI1302<br/>Firmware Flash memory"]
+    end
+    Engine -->|USB data cable| USB
+    User["User presses Debug Rst<br/>when prompted"] -->|Manual reset| Chip
+```
+
+Connect the Mac to the module's own USB-C port and keep the host controller
+disconnected during programming. The helper checks the image and USB identity
+before delegating the flash to the native engine; the user triggers MaskROM
+with a manual reset. See the [architecture overview](docs/architecture/system-overview.md)
+for the detailed component and programming-sequence diagrams.
 
 ## Quick start
 

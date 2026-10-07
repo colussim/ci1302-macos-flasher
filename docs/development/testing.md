@@ -13,9 +13,9 @@ a real firmware-format test; perform native offline `inspect` separately on a
 private complete image.
 
 Check scripts on the macOS bundled Bash 3.2 as well as newer Bash when changing
-syntax. Keep source comments/logs in English and maintain the user-facing French
-README consistently with the English CLI and hardware limitations. New source
-files require the Emmanuel COLUSSI author header.
+syntax. Keep source comments, logs, and all documentation in English. Maintain
+the README consistently with the CLI and hardware limitations. New source files
+require the Emmanuel COLUSSI author header.
 
 For a native integration check, run the real pinned installer, then `list` and
 `inspect` on a trusted private image. These do not write Flash. Probe/flash are

@@ -18,7 +18,7 @@ archive and executable digests, preserve upstream notices, require complete
 CI1302 FW_V2 images and exact CH340 1A86:7523 identity, and use explicit ports,
 manual reset, 60-second connection waits, and the physically tested rates.
 Keep firmware/downloads/logs out of Git and expose no network server. Provide
-English technical documentation and a French user-facing quick start.
+English documentation, including the user-facing quick start.
 
 ## Alternatives considered
 

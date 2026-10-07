@@ -3,7 +3,7 @@
 This is a Bash/macOS command-line helper, not a firmware SDK or server. Preserve
 compatibility with macOS Bash 3.2. Keep source comments, names, and diagnostic
 messages in English, and include `Author: Emmanuel COLUSSI` headers in new
-source files. The user-facing French README is an intentional translation.
+source files. Keep all project documentation in English, including README files.
 
 Read README.md, scripts/common.sh, and the architecture/deployment guides before
 changing behavior. Keep changes focused. Always synchronize CLI documentation,
